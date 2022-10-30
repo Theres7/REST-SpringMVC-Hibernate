@@ -21,8 +21,6 @@ public class HomeController {
         List<User> users = service.loadUsers();
         model.addAttribute( "users", users );
         model.addAttribute( "title", "User Registration and Login" );
-        return new ResponseEntity<List<User>>( users, HttpStatus.OK );
+        return new ResponseEntity<>( users, HttpStatus.OK );
     }
-
-
 }
