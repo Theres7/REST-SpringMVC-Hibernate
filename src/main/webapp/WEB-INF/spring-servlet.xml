@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.project" />
+
+    <!-- Add View Resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- Create Data Source -->
+    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          name="ds">
+        <property name="driverClassName"
+                  value="com.mysql.cj.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/rest_user" />
+        <property name="username" value="root" />
+        <property name="password" value="rootpass" />
+    </bean>
+
+        <!-- Local SessionFactory Bean-->
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="factory">    <!--hibernate.cfg.xml-->
+
+        <!-- Property 1: data source -->
+        <property name="dataSource" ref="ds"></property>
+
+        <!-- Property 2: hibernate properties -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>   <!-- shows sql queries by hibernate on console -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop> <!-- update -creates a table and updates it
+                                                                      create -always remove the previous values
+                                                                               and create a new table     -->
+            </props>
+        </property>
+
+        <!-- Property 3: annotated classes -->
+        <property name="annotatedClasses">
+            <list>
+                <value>com.project.model.User</value>  <!-- Hibernate Table Creation -->
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="hibernateTemplate">
+        <property name="sessionFactory" ref="factory"/>
+    </bean>
+
+    <!--  Transaction Manager [DB write operation require HibernateTransactionManager]-->
+    <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
+        <property name="sessionFactory" ref="factory"></property>
+    </bean>
+    <tx:annotation-driven />
+</beans>
