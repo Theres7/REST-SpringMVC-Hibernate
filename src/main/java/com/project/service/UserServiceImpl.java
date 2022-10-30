@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDao userDao;
-
+    
     @Override
     public void saveUser(User user) {
         userDao.saveUser( user );
@@ -23,24 +23,18 @@ public class UserServiceImpl implements UserService{
         userDao.updateUser( user );
     }
 
-    //get all Users
     @Override
     public List<User> loadUsers(){
         return userDao.loadUsers();
     }
 
-    //get User by Id
     @Override
     public User getUserById(int userId){
         return userDao.getUserById( userId);
     }
 
-
-    //delete User
     @Override
     public void deleteUser(int userId){
         userDao.deleteUser( userId );
     }
-
-
 }
