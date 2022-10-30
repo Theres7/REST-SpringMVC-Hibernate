@@ -17,10 +17,8 @@ public class HomeController {
     private UserService service;
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> home(Model model) {
+    public ResponseEntity<List<User>> home() {
         List<User> users = service.loadUsers();
-        model.addAttribute( "users", users );
-        model.addAttribute( "title", "User Registration and Login" );
         return new ResponseEntity<>( users, HttpStatus.OK );
     }
 }
