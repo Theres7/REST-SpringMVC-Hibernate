@@ -44,10 +44,8 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
-                <prop key="hibernate.show_sql">true</prop>   <!-- shows sql queries by hibernate on console -->
-                <prop key="hibernate.hbm2ddl.auto">update</prop> <!-- update -creates a table and updates it
-                                                                      create -always remove the previous values
-                                                                               and create a new table     -->
+                <prop key="hibernate.show_sql">true</prop>   
+                <prop key="hibernate.hbm2ddl.auto">update</prop> 
             </props>
         </property>
 
