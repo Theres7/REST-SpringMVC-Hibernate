@@ -14,13 +14,6 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     HibernateTemplate hibernateTemplate;
 
-    //add or update User
-//    @Override
-//    @Transactional
-//    public void addOrUpdateUser(User user){
-//        hibernateTemplate.saveOrUpdate( user );
-//    }
-
     @Override
     @Transactional
     public void saveUser(User user) {
@@ -33,24 +26,22 @@ public class UserDaoImpl implements UserDao {
         hibernateTemplate.update( user );
     }
 
-    //get all Users
+    // Get All Users
     @Override
     public List<User> loadUsers() {
         return hibernateTemplate.loadAll( User.class );
     }
 
-    //get User by Id
+    // Get User by Id
     @Override
     public User getUserById(int userId) {
         return hibernateTemplate.get( User.class, userId );
     }
 
-    //delete User
+    // Delete User
     @Override
     @Transactional
     public void deleteUser(int userId) {
-//        hibernateTemplate.delete( getUserById( userId ) );
         hibernateTemplate.delete( hibernateTemplate.load( User.class, userId ) );
     }
-
 }
