@@ -1,10 +1,8 @@
 package com.project.model;
 
-
 import javax.persistence.*;
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) //jackson-databind
 public class User {
 
     @Id
@@ -75,5 +73,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
