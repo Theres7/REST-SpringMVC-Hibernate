@@ -5,7 +5,7 @@ import com.project.model.User;
 import java.util.List;
 
 public interface UserDao {
-    //     void addOrUpdateUser(User user);
+    
     void saveUser(User user);
 
     void updateUser(User user);
